@@ -11,6 +11,7 @@
     "start": "serve -s dist -l ${PORT:-3000}"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.126.0",
     "lucide-react": "^1.47.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

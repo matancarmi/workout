@@ -157,6 +157,7 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
           routine={routine}
           equipment={equipment}
           onSwapExercise={handleSwap}
+          onRoutineChange={setRoutine}
           onApprove={() => onComplete(routine)}
           onBack={() => goTo('equipment')}
         />

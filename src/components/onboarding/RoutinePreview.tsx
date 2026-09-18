@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { ArrowLeftRight, Check } from 'lucide-react'
+import { ArrowLeftRight, Check, Sparkles } from 'lucide-react'
 import { getExercise } from '../../data/exerciseLibrary'
 import type { Equipment, Routine } from '../../types'
+import { CoachChat } from '../coach/CoachChat'
 import { Button } from '../shared/Button'
 import { ExerciseImage } from '../shared/ExerciseImage'
 import { ExerciseSwapModal } from './ExerciseSwapModal'
@@ -10,14 +11,23 @@ interface RoutinePreviewProps {
   routine: Routine
   equipment: Equipment
   onSwapExercise: (dayId: string, routineExerciseId: string, newExerciseId: string) => void
+  onRoutineChange: (routine: Routine) => void
   onApprove: () => void
   onBack: () => void
 }
 
-export function RoutinePreview({ routine, equipment, onSwapExercise, onApprove, onBack }: RoutinePreviewProps) {
+export function RoutinePreview({
+  routine,
+  equipment,
+  onSwapExercise,
+  onRoutineChange,
+  onApprove,
+  onBack,
+}: RoutinePreviewProps) {
   const [swapTarget, setSwapTarget] = useState<{ dayId: string; routineExerciseId: string; exerciseId: string } | null>(
     null,
   )
+  const [coachOpen, setCoachOpen] = useState(false)
 
   return (
     <div className="flex flex-col gap-6">
@@ -27,6 +37,10 @@ export function RoutinePreview({ routine, equipment, onSwapExercise, onApprove, 
           סקירת התוכנית בת {routine.workoutDays.length} הימים. הקש/י על כל תרגיל כדי להחליף אותו בתרגיל חלופי.
         </p>
       </div>
+
+      <Button variant="secondary" size="lg" fullWidth icon={<Sparkles size={20} />} onClick={() => setCoachOpen(true)}>
+        התייעצות עם מאמן AI
+      </Button>
 
       <div className="flex flex-col gap-5">
         {routine.workoutDays.map((day) => (
@@ -74,6 +88,15 @@ export function RoutinePreview({ routine, equipment, onSwapExercise, onApprove, 
           exerciseId={swapTarget.exerciseId}
           equipment={equipment}
           onSelect={(newExerciseId) => onSwapExercise(swapTarget.dayId, swapTarget.routineExerciseId, newExerciseId)}
+        />
+      )}
+
+      {coachOpen && (
+        <CoachChat
+          routine={routine}
+          equipment={equipment}
+          onClose={() => setCoachOpen(false)}
+          onRoutineChange={onRoutineChange}
         />
       )}
     </div>
