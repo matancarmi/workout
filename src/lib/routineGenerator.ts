@@ -58,25 +58,27 @@ const LEGS_TEMPLATE: Slot[] = [
 ]
 
 const SPLIT_LABELS: Record<SplitType, string> = {
-  full_body: 'Full Body',
-  upper_lower: 'Upper / Lower',
-  push_pull_legs: 'Push / Pull / Legs',
+  full_body: 'פול בודי',
+  upper_lower: 'עליון / תחתון',
+  push_pull_legs: 'דחיפה / משיכה / רגליים',
 }
+
+const HEBREW_LETTERS = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח']
 
 function templatesForSplit(split: SplitType): { label: string; slots: Slot[] }[] {
   switch (split) {
     case 'full_body':
-      return [{ label: 'Full Body', slots: FULL_BODY_TEMPLATE }]
+      return [{ label: 'פול בודי', slots: FULL_BODY_TEMPLATE }]
     case 'upper_lower':
       return [
-        { label: 'Upper Body', slots: UPPER_TEMPLATE },
-        { label: 'Lower Body', slots: LOWER_TEMPLATE },
+        { label: 'גוף עליון', slots: UPPER_TEMPLATE },
+        { label: 'גוף תחתון', slots: LOWER_TEMPLATE },
       ]
     case 'push_pull_legs':
       return [
-        { label: 'Push', slots: PUSH_TEMPLATE },
-        { label: 'Pull', slots: PULL_TEMPLATE },
-        { label: 'Legs', slots: LEGS_TEMPLATE },
+        { label: 'דחיפה', slots: PUSH_TEMPLATE },
+        { label: 'משיכה', slots: PULL_TEMPLATE },
+        { label: 'רגליים', slots: LEGS_TEMPLATE },
       ]
   }
 }
@@ -123,7 +125,7 @@ function pickExercises(group: MuscleGroup, count: number, equipment: Equipment, 
 }
 
 function buildDay(dayIndex: number, label: string, slots: Slot[], equipment: Equipment): WorkoutDay {
-  const letter = String.fromCharCode(65 + dayIndex)
+  const letter = HEBREW_LETTERS[dayIndex] ?? String(dayIndex + 1)
   const routineExercises: RoutineExercise[] = []
   let groupOffsetSeed = dayIndex * 3
 
@@ -142,7 +144,7 @@ function buildDay(dayIndex: number, label: string, slots: Slot[], equipment: Equ
 
   return {
     id: makeId('day'),
-    name: `Workout ${letter} — ${label}`,
+    name: `אימון ${letter} — ${label}`,
     focusLabel: label,
     exercises: routineExercises,
   }
@@ -174,33 +176,33 @@ export function splitLabel(split: SplitType): string {
 export const SPLIT_OPTIONS: { value: SplitType; label: string; description: string; dayOptions: number[] }[] = [
   {
     value: 'full_body',
-    label: 'Full Body',
-    description: 'Train your whole body every session. Great for 2-4 days/week.',
+    label: 'פול בודי',
+    description: 'אימון לכל הגוף בכל מפגש. מתאים ל-2-4 ימים בשבוע.',
     dayOptions: [2, 3, 4],
   },
   {
     value: 'upper_lower',
-    label: 'Upper / Lower',
-    description: 'Alternate upper and lower body days. Great for 3-4 days/week.',
+    label: 'עליון / תחתון',
+    description: 'לסירוגין בין יום עליון ליום תחתון. מתאים ל-3-4 ימים בשבוע.',
     dayOptions: [3, 4],
   },
   {
     value: 'push_pull_legs',
-    label: 'Push / Pull / Legs',
-    description: 'Classic PPL split for higher training frequency.',
+    label: 'דחיפה / משיכה / רגליים',
+    description: 'פיצול PPL קלאסי לתדירות אימון גבוהה יותר.',
     dayOptions: [3, 6],
   },
 ]
 
 export const FOCUS_OPTIONS: { value: FocusArea; label: string; description: string }[] = [
-  { value: 'balanced', label: 'Balanced', description: 'Even attention across all muscle groups.' },
-  { value: 'legs', label: 'Legs & Glutes', description: 'Extra volume for quads, hamstrings, and glutes.' },
-  { value: 'upper_body', label: 'Upper Body', description: 'Extra volume for chest, back, and shoulders.' },
-  { value: 'core', label: 'Core', description: 'Extra ab and core work every session.' },
+  { value: 'balanced', label: 'מאוזן', description: 'תשומת לב שווה לכל קבוצות השרירים.' },
+  { value: 'legs', label: 'רגליים וישבן', description: 'נפח נוסף לארבע-ראשי, המסטרינג וישבן.' },
+  { value: 'upper_body', label: 'גוף עליון', description: 'נפח נוסף לחזה, גב וכתפיים.' },
+  { value: 'core', label: 'ליבה', description: 'עבודת בטן וליבה נוספת בכל אימון.' },
 ]
 
 export const EQUIPMENT_OPTIONS: { value: Equipment; label: string; description: string }[] = [
-  { value: 'full_gym', label: 'Full Gym', description: 'Barbells, machines, cables, and dumbbells.' },
-  { value: 'dumbbells_only', label: 'Dumbbells Only', description: 'Home setup with just a pair of dumbbells.' },
-  { value: 'bodyweight', label: 'Bodyweight', description: 'No equipment needed at all.' },
+  { value: 'full_gym', label: 'חדר כושר מלא', description: 'מוטות, מכשירים, כבלים ומשקולות.' },
+  { value: 'dumbbells_only', label: 'משקולות בלבד', description: 'מתאים לאימון ביתי עם זוג משקולות.' },
+  { value: 'bodyweight', label: 'משקל גוף', description: 'ללא צורך בציוד כלל.' },
 ]

@@ -36,7 +36,7 @@ export function PreferenceStep<T extends string>({
             <button
               key={opt.value}
               onClick={() => onSelect(opt.value)}
-              className={`flex items-center gap-4 rounded-2xl border p-4 text-left transition-colors ${
+              className={`flex items-center gap-4 rounded-2xl border p-4 text-start transition-colors ${
                 isSelected
                   ? 'border-primary bg-primary/10'
                   : 'border-border bg-surface-card active:bg-white/5'

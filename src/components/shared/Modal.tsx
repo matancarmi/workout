@@ -14,7 +14,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       <button
-        aria-label="Close"
+        aria-label="סגירה"
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
         onClick={onClose}
       />
@@ -23,7 +23,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
           <h2 className="text-lg font-bold text-white">{title}</h2>
           <button
             onClick={onClose}
-            aria-label="Close"
+            aria-label="סגירה"
             className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/70 active:bg-white/10"
           >
             <X size={18} />

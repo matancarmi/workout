@@ -33,13 +33,13 @@ export function HomeScreen({
             <Dumbbell size={22} />
           </div>
           <div>
-            <p className="text-lg font-extrabold leading-tight text-white">Iron Log</p>
-            <p className="text-xs text-white/40">{routine.workoutDays.length}-day routine</p>
+            <p className="text-lg font-extrabold leading-tight text-white">יומן הברזל</p>
+            <p className="text-xs text-white/40">תוכנית של {routine.workoutDays.length} ימים</p>
           </div>
         </div>
         <button
           onClick={() => setConfirmReset(true)}
-          aria-label="Reset Routine"
+          aria-label="איפוס תוכנית"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-card text-white/60 active:bg-white/10"
         >
           <RotateCcw size={18} />
@@ -52,19 +52,19 @@ export function HomeScreen({
         ))}
 
         <Button variant="secondary" size="lg" fullWidth icon={<RotateCcw size={18} />} onClick={() => setConfirmReset(true)}>
-          Reset Routine
+          איפוס תוכנית
         </Button>
 
         <BackupPanel data={data} onImport={onImportData} />
       </main>
 
-      <Modal open={confirmReset} onClose={() => setConfirmReset(false)} title="Reset Routine?">
+      <Modal open={confirmReset} onClose={() => setConfirmReset(false)} title="לאפס את התוכנית?">
         <p className="text-sm text-white/60">
-          This replaces your current routine with a brand new one. Your workout history stays safe.
+          הפעולה תחליף את התוכנית הנוכחית בתוכנית חדשה. היסטוריית האימונים שלך תישאר בטוחה.
         </p>
         <div className="mt-5 flex gap-3">
           <Button variant="secondary" className="flex-1" onClick={() => setConfirmReset(false)}>
-            Cancel
+            ביטול
           </Button>
           <Button
             variant="danger"
@@ -74,7 +74,7 @@ export function HomeScreen({
               onResetRoutine()
             }}
           >
-            Reset
+            איפוס
           </Button>
         </div>
       </Modal>

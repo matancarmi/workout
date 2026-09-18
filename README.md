@@ -1,7 +1,8 @@
-# Iron Log — Workout Tracker
+# יומן הברזל — Iron Log Workout Tracker
 
-A mobile-first, dark-themed gym workout tracker. Set up a routine once, then log
-every session on the gym floor with large, thumb-friendly controls.
+A mobile-first, dark-themed gym workout tracker with a fully Hebrew, RTL
+interface. Set up a routine once, then log every session on the gym floor
+with large, thumb-friendly controls.
 
 ## Stack
 
@@ -9,6 +10,10 @@ every session on the gym floor with large, thumb-friendly controls.
 - **Vite** — dev server and build
 - **Tailwind CSS v4** — styling (via `@tailwindcss/vite`)
 - **lucide-react** — icons
+- Exercise demo photos are pulled at runtime from the open
+  [free-exercise-db](https://github.com/yuhonas/free-exercise-db) dataset
+  (`src/lib/exerciseImages.ts`); an exercise without a mapped photo falls
+  back to its icon tile.
 
 All data (routine + workout history) is stored in the browser's `localStorage`.
 No backend, no accounts. A JSON export/import panel on the Home screen doubles

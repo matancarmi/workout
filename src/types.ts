@@ -23,6 +23,8 @@ export interface Exercise {
   equipment: Equipment[]
   description: string
   icon: string
+  /** Folder name in the free-exercise-db dataset (github.com/yuhonas/free-exercise-db), used to build demo photo URLs. */
+  imageId?: string
   defaultSets: number
   defaultReps: string
 }

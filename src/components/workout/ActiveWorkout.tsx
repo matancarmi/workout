@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Check, ChevronLeft } from 'lucide-react'
+import { Check, ChevronRight } from 'lucide-react'
 import { getExercise } from '../../data/exerciseLibrary'
 import { makeId } from '../../lib/id'
 import type { ExerciseLog, WorkoutDay, WorkoutSession } from '../../types'
@@ -115,15 +115,15 @@ export function ActiveWorkout({ day, sessions, onSaveProgress, onFinish, onExit 
       <header className="safe-top sticky top-0 z-10 -mx-4 flex items-center gap-3 bg-surface/95 px-4 py-4 backdrop-blur">
         <button
           onClick={onExit}
-          aria-label="Exit workout"
+          aria-label="יציאה מהאימון"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-card text-white/70 active:bg-white/10"
         >
-          <ChevronLeft size={22} />
+          <ChevronRight size={22} />
         </button>
         <div className="min-w-0 flex-1">
           <p className="truncate text-lg font-extrabold text-white">{day.name}</p>
           <p className="text-xs text-white/40">
-            {completedSets}/{totalSets} sets complete
+            {completedSets}/{totalSets} סטים הושלמו
           </p>
         </div>
       </header>
@@ -147,7 +147,7 @@ export function ActiveWorkout({ day, sessions, onSaveProgress, onFinish, onExit 
         })}
 
         <Button size="xl" fullWidth icon={<Check size={22} />} onClick={handleFinish}>
-          Finish Workout
+          סיום האימון
         </Button>
       </main>
 

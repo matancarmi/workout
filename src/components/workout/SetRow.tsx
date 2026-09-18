@@ -25,14 +25,14 @@ export function SetRow({ set, previous, onChangeWeight, onChangeReps, onToggleCo
       </div>
 
       <div className="flex w-16 shrink-0 flex-col items-center justify-center">
-        <span className="text-[10px] uppercase tracking-wide text-white/30">Prev</span>
+        <span className="text-[10px] uppercase tracking-wide text-white/30">קודם</span>
         <span className="text-xs font-medium text-white/50">{previousLabel}</span>
       </div>
 
       <input
         type="number"
         inputMode="decimal"
-        placeholder={previous?.weight != null ? String(previous.weight) : 'kg'}
+        placeholder={previous?.weight != null ? String(previous.weight) : 'ק״ג'}
         value={set.weight ?? ''}
         onChange={(e) => onChangeWeight(parseNumberInput(e.target.value))}
         className="h-11 min-w-0 flex-1 rounded-xl border border-border bg-surface px-2 text-center text-base font-semibold text-white placeholder:text-white/25 focus:border-primary focus:outline-none"
@@ -41,7 +41,7 @@ export function SetRow({ set, previous, onChangeWeight, onChangeReps, onToggleCo
       <input
         type="number"
         inputMode="numeric"
-        placeholder={previous?.reps != null ? String(previous.reps) : 'reps'}
+        placeholder={previous?.reps != null ? String(previous.reps) : 'חזרות'}
         value={set.reps ?? ''}
         onChange={(e) => onChangeReps(parseNumberInput(e.target.value))}
         className="h-11 min-w-0 flex-1 rounded-xl border border-border bg-surface px-2 text-center text-base font-semibold text-white placeholder:text-white/25 focus:border-primary focus:outline-none"
@@ -49,7 +49,7 @@ export function SetRow({ set, previous, onChangeWeight, onChangeReps, onToggleCo
 
       <button
         onClick={onToggleComplete}
-        aria-label={set.completed ? 'Mark set incomplete' : 'Mark set complete'}
+        aria-label={set.completed ? 'סימון הסט כלא הושלם' : 'סימון הסט כהושלם'}
         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 transition-colors ${
           set.completed ? 'border-accent bg-accent text-surface' : 'border-white/15 text-white/30 active:bg-white/5'
         }`}

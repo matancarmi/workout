@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ChevronLeft, Dumbbell } from 'lucide-react'
+import { ChevronRight, Dumbbell } from 'lucide-react'
 import { EQUIPMENT_OPTIONS, FOCUS_OPTIONS, generateRoutine, SPLIT_OPTIONS } from '../../lib/routineGenerator'
 import type { Equipment, FocusArea, OnboardingPreferences, Routine, SplitType } from '../../types'
 import { Button } from '../shared/Button'
@@ -70,10 +70,10 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
       <header className="safe-top sticky top-0 z-10 -mx-4 flex items-center gap-2 bg-surface/95 px-4 py-4 backdrop-blur">
         <button
           onClick={goBack}
-          aria-label="Back"
+          aria-label="חזרה"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-card text-white/70 active:bg-white/10"
         >
-          <ChevronLeft size={22} />
+          <ChevronRight size={22} />
         </button>
         <div className="flex flex-1 gap-1.5">
           {STEP_ORDER.map((s, idx) => (
@@ -89,8 +89,8 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
 
       {step === 'split' && (
         <PreferenceStep
-          title="Choose your split"
-          subtitle="How do you want to organize your training week?"
+          title="בחירת פיצול אימונים"
+          subtitle="איך לארגן את שבוע האימונים?"
           options={SPLIT_OPTIONS}
           selected={splitType}
           onSelect={(value) => {
@@ -103,12 +103,12 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
 
       {step === 'days' && (
         <PreferenceStep
-          title="Days per week"
-          subtitle="How many days can you train?"
+          title="ימי אימון בשבוע"
+          subtitle="כמה ימים אפשר להתאמן?"
           options={dayOptions.map((d) => ({
             value: String(d),
-            label: `${d} days / week`,
-            description: d <= 3 ? 'Efficient and sustainable.' : 'Higher frequency for faster progress.',
+            label: `${d} ימים בשבוע`,
+            description: d <= 3 ? 'יעיל וברי-קיימא לאורך זמן.' : 'תדירות גבוהה יותר להתקדמות מהירה.',
           }))}
           selected={daysPerWeek ? String(daysPerWeek) : null}
           onSelect={(value) => {
@@ -120,8 +120,8 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
 
       {step === 'focus' && (
         <PreferenceStep
-          title="Pick a focus"
-          subtitle="We'll add extra volume to your priority area."
+          title="בחירת דגש"
+          subtitle="נוסיף נפח אימון נוסף לאזור שבחרת."
           options={FOCUS_OPTIONS}
           selected={focus}
           onSelect={(value) => {
@@ -134,8 +134,8 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
       {step === 'equipment' && (
         <div className="flex flex-col gap-6">
           <PreferenceStep
-            title="Available equipment"
-            subtitle="We'll only suggest exercises you can actually do."
+            title="ציוד זמין"
+            subtitle="נציע רק תרגילים שאפשר לבצע בפועל."
             options={EQUIPMENT_OPTIONS}
             selected={equipment}
             onSelect={(value) => setEquipment(value)}
@@ -147,7 +147,7 @@ export function OnboardingFlow({ onComplete, onCancel }: OnboardingFlowProps) {
             onClick={handleGenerateAndPreview}
             icon={<Dumbbell size={22} />}
           >
-            Generate My Routine
+            יצירת התוכנית שלי
           </Button>
         </div>
       )}

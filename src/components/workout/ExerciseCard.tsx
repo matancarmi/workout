@@ -20,19 +20,19 @@ export function ExerciseCard({ exercise, routineExercise, log, previousLog, onUp
   return (
     <div className="rounded-3xl border border-border bg-surface-card p-4">
       <div className="flex items-start gap-3">
-        <ExerciseImage icon={exercise.icon} muscleGroup={exercise.muscleGroup} size="md" />
+        <ExerciseImage icon={exercise.icon} muscleGroup={exercise.muscleGroup} imageId={exercise.imageId} size="md" />
         <div className="min-w-0 flex-1">
           <h3 className="font-bold text-white">{exercise.name}</h3>
           <p className="text-xs text-white/50">
-            Target: {routineExercise.sets} sets × {routineExercise.repRange}
+            יעד: {routineExercise.sets} סטים × {routineExercise.repRange}
           </p>
           <p className="mt-1 text-xs font-semibold text-accent">
-            {completedCount}/{log.sets.length} sets done
+            {completedCount}/{log.sets.length} סטים הושלמו
           </p>
         </div>
         <button
           onClick={() => setExpanded((v) => !v)}
-          aria-label={expanded ? 'Hide description' : 'Show description'}
+          aria-label={expanded ? 'הסתרת תיאור' : 'הצגת תיאור'}
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-white/50"
         >
           {expanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}

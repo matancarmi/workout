@@ -21,6 +21,8 @@ import {
   TrendingUp,
   type LucideIcon,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { exerciseImageFrames } from '../../lib/exerciseImages'
 import type { MuscleGroup } from '../../types'
 
 const ICONS: Record<string, LucideIcon> = {
@@ -61,6 +63,7 @@ const GROUP_GRADIENT: Record<MuscleGroup, string> = {
 interface ExerciseImageProps {
   icon: string
   muscleGroup: MuscleGroup
+  imageId?: string
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }
@@ -71,7 +74,12 @@ const SIZE_MAP = {
   lg: { box: 'h-24 w-24', icon: 40 },
 }
 
-export function ExerciseImage({ icon, muscleGroup, size = 'md', className = '' }: ExerciseImageProps) {
+const FRAME_INTERVAL_MS = 900
+
+function IconTile({ icon, muscleGroup, size, className }: Required<Pick<ExerciseImageProps, 'icon' | 'muscleGroup'>> & {
+  size: 'sm' | 'md' | 'lg'
+  className: string
+}) {
   const Icon = ICONS[icon] ?? Dumbbell
   const dims = SIZE_MAP[size]
   return (
@@ -80,5 +88,56 @@ export function ExerciseImage({ icon, muscleGroup, size = 'md', className = '' }
     >
       <Icon size={dims.icon} strokeWidth={1.75} className="text-white/90" />
     </div>
+  )
+}
+
+function ExercisePhoto({
+  imageId,
+  icon,
+  muscleGroup,
+  size,
+  className,
+}: Required<Pick<ExerciseImageProps, 'imageId' | 'icon' | 'muscleGroup'>> & {
+  size: 'sm' | 'md' | 'lg'
+  className: string
+}) {
+  const dims = SIZE_MAP[size]
+  const [frameIndex, setFrameIndex] = useState(0)
+  const [failed, setFailed] = useState(false)
+  const frames = exerciseImageFrames(imageId)
+
+  useEffect(() => {
+    if (frames.length < 2 || failed) return
+    const id = setInterval(() => {
+      setFrameIndex((prev) => (prev + 1) % frames.length)
+    }, FRAME_INTERVAL_MS)
+    return () => clearInterval(id)
+  }, [frames.length, failed])
+
+  if (failed) {
+    return <IconTile icon={icon} muscleGroup={muscleGroup} size={size} className={className} />
+  }
+
+  return (
+    <div
+      className={`shrink-0 overflow-hidden rounded-2xl border border-white/5 bg-surface-raised ${dims.box} ${className}`}
+    >
+      <img
+        src={frames[frameIndex]}
+        alt=""
+        className="h-full w-full object-cover"
+        loading="lazy"
+        onError={() => setFailed(true)}
+      />
+    </div>
+  )
+}
+
+export function ExerciseImage({ icon, muscleGroup, imageId, size = 'md', className = '' }: ExerciseImageProps) {
+  if (!imageId) {
+    return <IconTile icon={icon} muscleGroup={muscleGroup} size={size} className={className} />
+  }
+  return (
+    <ExercisePhoto key={imageId} imageId={imageId} icon={icon} muscleGroup={muscleGroup} size={size} className={className} />
   )
 }

@@ -47,10 +47,10 @@ export function exportDataToFile(data: AppData): void {
 export function parseImportedData(raw: string): AppData {
   const parsed = JSON.parse(raw)
   if (!parsed || typeof parsed !== 'object') {
-    throw new Error('This file does not contain valid backup data.')
+    throw new Error('הקובץ אינו מכיל נתוני גיבוי תקינים.')
   }
   if (!('sessions' in parsed) || !Array.isArray((parsed as AppData).sessions)) {
-    throw new Error('This file does not look like an Iron Log backup.')
+    throw new Error('הקובץ אינו נראה כמו גיבוי של יומן הברזל.')
   }
   return {
     version: DATA_VERSION,
