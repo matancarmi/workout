@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Check, ChevronRight } from 'lucide-react'
 import { getExercise } from '../../data/exerciseLibrary'
 import { makeId } from '../../lib/id'
+import { parseTargetReps } from '../../lib/parseRepRange'
 import type { ExerciseLog, WorkoutDay, WorkoutSession } from '../../types'
 import { useRestTimer } from '../../hooks/useRestTimer'
 import { Button } from '../shared/Button'
@@ -17,16 +18,19 @@ interface ActiveWorkoutProps {
 }
 
 function buildInitialLogs(day: WorkoutDay): ExerciseLog[] {
-  return day.exercises.map((rex) => ({
-    routineExerciseId: rex.id,
-    exerciseId: rex.exerciseId,
-    sets: Array.from({ length: rex.sets }, (_, i) => ({
-      setNumber: i + 1,
-      weight: null,
-      reps: null,
-      completed: false,
-    })),
-  }))
+  return day.exercises.map((rex) => {
+    const targetReps = parseTargetReps(rex.repRange)
+    return {
+      routineExerciseId: rex.id,
+      exerciseId: rex.exerciseId,
+      sets: Array.from({ length: rex.sets }, (_, i) => ({
+        setNumber: i + 1,
+        weight: null,
+        reps: targetReps,
+        completed: false,
+      })),
+    }
+  })
 }
 
 export function ActiveWorkout({ day, sessions, onSaveProgress, onFinish, onExit }: ActiveWorkoutProps) {
